@@ -1,0 +1,86 @@
+$fn=64;
+E3Dv6_Heatsink();
+//E3Dv6();
+
+module E3Dv6_Cutout (){
+  union(){
+    translate([0,0,-3.7])
+      cylinder(d=16,h=3.7);
+    translate([0,0,-9.7])
+      cylinder(d=12,h=6);
+    translate([0,0,-16.7])
+      cylinder(d=16,h=7);
+    translate([0,0,-42.7])
+      cylinder(d=22.3,h=26);
+  }
+}
+
+
+module E3Dv6_Heatsink (internal = false){
+  difference(){
+    union(){
+      translate([0,0,-3.7])
+        cylinder(d=16,h=3.7);
+      translate([0,0,-9.7])
+        cylinder(d=12,h=6);
+      translate([0,0,-12.7])
+        cylinder(d=16,h=3);
+      translate([0,0,-14.2])
+        cylinder(d=9,h=1.5);
+      translate([0,0,-15.2])
+        cylinder(d=16,h=1);
+      for(i=[0:10]){
+        translate([0,0,-16.7-2.5*i])
+          cylinder(d=9+i/5,h=1.5);
+        translate([0,0,-17.7-2.5*i])
+          cylinder(d=22.3,h=1);
+      }
+    }
+    if(internal){
+      union(){
+        translate([0,0,-6.5])
+          cylinder(d=8,h=7);
+        translate([0,0,-6.5-tan(31)*1.9])
+          cylinder(d1=4.2,d2=8,h=tan(31)*1.9+0.01);
+        translate([0,0,-43])
+          cylinder(d=4.2,h=44);
+        translate([0,0,-43])
+          cylinder(d=6,h=15.4);
+        translate([0,0,-27.6-0.01])
+          cylinder(d1=6,d2=4.2,h=tan(31)*0.9+0.01);
+      }
+    }
+  }
+}
+
+module E3Dv6 (){
+  union(){
+    translate([0,0,-3.7])
+      cylinder(d=16,h=3.7);
+    translate([0,0,-9.7])
+      cylinder(d=12,h=6);
+    translate([0,0,-12.7])
+      cylinder(d=16,h=3);
+    translate([0,0,-14.2])
+      cylinder(d=9,h=1.5);
+    translate([0,0,-15.2])
+      cylinder(d=16,h=1);
+    for(i=[0:10]){
+      translate([0,0,-16.7-2.5*i])
+        cylinder(d=9+i/5,h=1.5);
+      translate([0,0,-17.7-2.5*i])
+        cylinder(d=22.3,h=1);
+    }
+    translate([0,0,-42.7-2.1])
+      cylinder(d=2.95,h=2.1);
+    translate([0,5.5,-42.7-2.1-11.5/2])
+      cube([16,20,11.5],center=true);
+    translate([0,0,-42.7-2.1-11.5-3])
+      cylinder(d=7/sin(60),h=3,$fn=6);
+    translate([0,0,-42.7-2.1-11.5-3-2])
+      cylinder(d1=1,d2=3.8,h=2);
+    translate([0,7,-42.7-2.1-11.5/2])
+      rotate([0,90,0])
+        cylinder(d=6,h=20,center=true);
+  }
+}
